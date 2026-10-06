@@ -1,0 +1,26 @@
+// Configuració de Cloudflare per a PratTasques
+// Documentació: https://developers.cloudflare.com/workers/wrangler/configuration/
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	// Ha de coincidir amb el nom del Worker al panell de Cloudflare
+	"name": "prat-tasques",
+	// Codi de l'API (backend)
+	"main": "worker/index.ts",
+	"compatibility_date": "2026-10-01",
+	// Fitxers de React: les rutes que no són /api/ tornen index.html
+	"assets": {
+		"not_found_handling": "single-page-application"
+	},
+	"observability": {
+		"enabled": true
+	},
+	"upload_source_maps": true,
+	// Base de dades D1: al codi s'hi accedeix amb env.DB
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "prat-tasques-db",
+			"database_id": "52f25869-b436-4c52-8a67-bafd242a73d6"
+		}
+	]
+}

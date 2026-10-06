@@ -20,3 +20,4 @@ li { display: flex; justify-content: space-between; align-items: center; backgro
 li label { display: flex; gap: 10px; align-items: center; }
 li.feta label { text-decoration: line-through; color: #8a9ba0; }
 .esborra { background: transparent; color: var(--gris); padding: 4px 8px; }
+footer { margin-top: 32px; color: var(--gris); font-size: 0.85rem; text-align: center; }

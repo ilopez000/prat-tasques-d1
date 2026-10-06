@@ -83,6 +83,8 @@ export default function App() {
           </li>
         ))}
       </ul>
+
+      <footer>Dades desades a Cloudflare D1 · codi a GitHub</footer>
     </main>
   );
 }

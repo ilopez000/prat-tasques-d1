@@ -1,5 +1,6 @@
 // API de PratTasques. Totes les rutes comencen per /api/.
-// La resta d'adreces (/, /about...) les serveix Cloudflare amb els fitxers de React.
+// La resta d'adreces (/, /about...) les serveix Cloudflare
+// directament amb els fitxers de React.
 
 interface Tasca {
   id: number;
@@ -23,10 +24,15 @@ export default {
 
     // POST /api/tasques -> crea una tasca nova
     if (url.pathname === "/api/tasques" && metode === "POST") {
-      const dades = await request.json<{ titol?: string }>().catch(() => ({ titol: "" }));
+      const dades = await request
+        .json<{ titol?: string }>()
+        .catch(() => ({ titol: "" }));
       const titol = (dades.titol ?? "").trim();
       if (titol.length === 0 || titol.length > 100) {
-        return Response.json({ error: "El títol ha de tenir entre 1 i 100 caràcters" }, { status: 400 });
+        return Response.json(
+          { error: "El títol ha de tenir entre 1 i 100 caràcters" },
+          { status: 400 },
+        );
       }
       const tasca = await env.DB
         .prepare("INSERT INTO tasques (titol) VALUES (?) RETURNING *")
@@ -45,11 +51,16 @@ export default {
           .prepare("UPDATE tasques SET feta = 1 - feta WHERE id = ? RETURNING *")
           .bind(id)
           .first<Tasca>();
-        return tasca ? Response.json(tasca) : Response.json({ error: "No existeix" }, { status: 404 });
+        return tasca
+          ? Response.json(tasca)
+          : Response.json({ error: "No existeix" }, { status: 404 });
       }
 
       if (metode === "DELETE") {
-        const resultat = await env.DB.prepare("DELETE FROM tasques WHERE id = ?").bind(id).run();
+        const resultat = await env.DB
+          .prepare("DELETE FROM tasques WHERE id = ?")
+          .bind(id)
+          .run();
         return resultat.meta.changes > 0
           ? new Response(null, { status: 204 })
           : Response.json({ error: "No existeix" }, { status: 404 });

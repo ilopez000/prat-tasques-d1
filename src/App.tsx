@@ -74,10 +74,18 @@ export default function App() {
         {tasques.map((t) => (
           <li key={t.id} className={t.feta ? "feta" : ""}>
             <label>
-              <input type="checkbox" checked={t.feta === 1} onChange={() => canviaEstat(t.id)} />
+              <input
+                type="checkbox"
+                checked={t.feta === 1}
+                onChange={() => canviaEstat(t.id)}
+              />
               {t.titol}
             </label>
-            <button className="esborra" onClick={() => esborra(t.id)} aria-label={`Esborra ${t.titol}`}>
+            <button
+              className="esborra"
+              onClick={() => esborra(t.id)}
+              aria-label={`Esborra ${t.titol}`}
+            >
               ✕
             </button>
           </li>
